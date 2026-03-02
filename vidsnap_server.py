@@ -1,15 +1,25 @@
-import http.server
+# Complete Fixed Code for vidsnap_server.py
 
-# ... other imports and code ...
+from http.server import HTTPServer
+from socketserver import ThreadingMixIn
+import threading
+import os
 
-# Line 9 adjustment
-http_server_class = http.server.ThreadingHTTPServer
+class ThreadingHTTPServer(ThreadingMixIn, HTTPServer):
+    pass
 
-# ... other code ...
+# ... Other parts of the server code ... 
 
-# Line 388-390 adjustment
-with open('path/to/file', 'rb') as f:
-    while chunk := f.read(65536):
-        self.wfile.write(chunk)
+# Update the initialization to use ThreadingHTTPServer
+server = ThreadingHTTPServer((host, port), requestHandler)
 
-# ... rest of the code ...
+# Reading files in chunks of 65KB
+chunk_size = 65 * 1024  # 65KB
+with open('file_path', 'rb') as f:
+    while True:
+        chunk = f.read(chunk_size)
+        if not chunk:
+            break
+        # Process chunk
+
+# ... Other parts of the server code ...
