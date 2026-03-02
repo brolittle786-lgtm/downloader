@@ -7,4 +7,5 @@ WORKDIR /app
 COPY vidsnap_server.py .
 
 ENV PORT=8080
-CMD ["python3", "vidsnap_server.py"]
+COPY vidsnap_server_FIXED.py .
+CMD ["python3", "vidsnap_server_FIXED.py"]
