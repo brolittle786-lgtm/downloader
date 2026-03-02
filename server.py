@@ -13,7 +13,7 @@ try:
     import yt_dlp
 except ImportError:
     print("Installing yt-dlp...")
-    subprocess.check_call([sys.executable, "-m", "pip", "install", "yt-dlp",
+    subprocess.check_call([sys.executable, "-m", "pip", "install", "yt-dlp", "requests",
                            "--break-system-packages", "-q"], stderr=subprocess.DEVNULL)
     import yt_dlp
 
@@ -65,8 +65,6 @@ body{
   min-height:100vh;
   overflow-x:hidden;
 }
-
-/* Animated background */
 .bg-layer{
   position:fixed;inset:0;z-index:0;
   background:
@@ -82,11 +80,7 @@ body{
   background-size:60px 60px;
   pointer-events:none;
 }
-
-/* Layout */
 .page{position:relative;z-index:1;max-width:560px;margin:0 auto;padding:0 16px 60px}
-
-/* Header */
 header{
   text-align:center;
   padding:48px 0 36px;
@@ -124,8 +118,6 @@ header{
   font-size:12px;color:var(--muted);
   letter-spacing:.5px;
 }
-
-/* Cards */
 .card{
   background:var(--card);
   border:1px solid var(--border);
@@ -144,8 +136,6 @@ header{
   display:flex;align-items:center;gap:8px;
 }
 .card-title::before{content:'';width:16px;height:1px;background:var(--border2)}
-
-/* URL input */
 .url-field{
   display:flex;align-items:center;
   background:var(--card2);
@@ -174,8 +164,6 @@ header{
   flex-shrink:0;
 }
 .paste-btn:hover,.paste-btn:active{color:var(--cyan)}
-
-/* Platform badges */
 .platforms{
   display:flex;gap:6px;flex-wrap:wrap;margin-top:10px;
 }
@@ -187,8 +175,6 @@ header{
   cursor:pointer;transition:all .15s;
 }
 .platform:hover{border-color:var(--cyan);color:var(--cyan)}
-
-/* Quality grid */
 .quality-grid{
   display:grid;
   grid-template-columns:repeat(3,1fr);
@@ -223,8 +209,6 @@ header{
   border-color:var(--green);
 }
 .q-btn.audio-btn.active .q-label{color:var(--green)}
-
-/* Download button */
 .dl-btn{
   width:100%;padding:17px;
   border-radius:14px;border:none;
@@ -254,8 +238,6 @@ header{
 }
 .dl-btn:disabled .spinner{border-color:var(--border2);border-top-color:var(--muted);display:block}
 .dl-btn:disabled .dl-icon{display:none}
-
-/* Progress bar */
 .progress-wrap{
   height:3px;background:var(--card2);
   border-radius:999px;margin-top:14px;
@@ -275,8 +257,6 @@ header{
   0%{transform:translateX(-150%)}
   100%{transform:translateX(350%)}
 }
-
-/* Status log */
 .log-box{
   background:var(--card2);
   border:1px solid var(--border);
@@ -289,8 +269,6 @@ header{
 }
 .log-box.show{display:block}
 .l-ok{color:var(--green)}.l-er{color:var(--red)}.l-info{color:var(--muted)}.l-warn{color:var(--amber)}
-
-/* Video info card */
 .vcard{
   display:none;margin-top:12px;
   background:var(--card2);border:1px solid var(--border);
@@ -305,8 +283,6 @@ header{
 }
 .vcard-title{font-size:13px;font-weight:700;line-height:1.4;margin-bottom:4px}
 .vcard-meta{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted)}
-
-/* Download links */
 .links-section{display:none;margin-top:12px}
 .links-section.show{display:block}
 .links-label{
@@ -337,8 +313,6 @@ header{
   font-size:22px;color:var(--green);
   flex-shrink:0;margin-left:12px;
 }
-
-/* Error box */
 .err-box{
   background:rgba(255,23,68,.06);
   border:1px solid rgba(255,23,68,.2);
@@ -349,8 +323,6 @@ header{
   display:none;
 }
 .err-box.show{display:block}
-
-/* Footer */
 footer{
   text-align:center;
   font-family:'JetBrains Mono',monospace;
@@ -358,16 +330,10 @@ footer{
   margin-top:40px;padding-top:20px;
   border-top:1px solid var(--border);
 }
-
-/* Scrollbar */
 ::-webkit-scrollbar{width:3px}
 ::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px}
-
-/* Animations */
 @keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
 @keyframes spin{to{transform:rotate(360deg)}}
-
-/* Responsive */
 @media(max-width:400px){
   .quality-grid{grid-template-columns:repeat(2,1fr)}
   .tagline{font-size:28px}
@@ -379,7 +345,6 @@ footer{
 <div class="grid-layer"></div>
 
 <div class="page">
-  <!-- Header -->
   <header>
     <div class="logo">
       <div class="logo-mark">▶</div>
@@ -389,7 +354,6 @@ footer{
     <p class="sub">// Powered by yt-dlp · HD + Audio · 1000+ Sites</p>
   </header>
 
-  <!-- URL Card -->
   <div class="card" style="animation-delay:.05s">
     <div class="card-title">Video URL</div>
     <div class="url-field">
@@ -410,7 +374,6 @@ footer{
     </div>
   </div>
 
-  <!-- Quality Card -->
   <div class="card" style="animation-delay:.1s">
     <div class="card-title">Quality</div>
     <div class="quality-grid" id="qualityGrid">
@@ -441,22 +404,18 @@ footer{
     </div>
   </div>
 
-  <!-- Download Button -->
   <button class="dl-btn" id="dlBtn" onclick="startDownload()">
     <div class="spinner"></div>
     <span class="dl-icon">⬇</span>
     <span id="dlBtnText">Download Now</span>
   </button>
 
-  <!-- Progress -->
   <div class="progress-wrap" id="progressWrap">
     <div class="progress-bar indeterminate" id="progressBar"></div>
   </div>
 
-  <!-- Log -->
   <div class="log-box" id="logBox"></div>
 
-  <!-- Video Info -->
   <div class="vcard" id="vcard">
     <img id="vcardThumb" src="" alt=""/>
     <div>
@@ -465,16 +424,13 @@ footer{
     </div>
   </div>
 
-  <!-- Download Links -->
   <div class="links-section" id="linksSection">
     <div class="links-label">Ready to Download</div>
     <div id="linksList"></div>
   </div>
 
-  <!-- Error -->
   <div class="err-box" id="errBox"></div>
 
-  <!-- Footer -->
   <footer>
     VidSnap &nbsp;·&nbsp; Free &nbsp;·&nbsp; No ads &nbsp;·&nbsp; No limits
   </footer>
@@ -502,7 +458,6 @@ async function pasteUrl() {
 }
 
 function onUrlInput() {
-  // Clear results when URL changes
   if (document.getElementById('linksSection').classList.contains('show')) {
     clearResults(false);
   }
@@ -575,7 +530,6 @@ async function pollJob(id) {
     const res = await fetch('/api/status/' + id);
     const d = await res.json();
 
-    // Update log
     if (d.logs?.length) {
       const box = document.getElementById('logBox');
       box.classList.add('show');
@@ -588,7 +542,6 @@ async function pollJob(id) {
       box.scrollTop = box.scrollHeight;
     }
 
-    // Video info
     if (d.title || d.thumb) {
       const vc = document.getElementById('vcard');
       vc.className = 'vcard show';
@@ -602,9 +555,9 @@ async function pollJob(id) {
       setLoading(false);
       log('Download complete!', 'l-ok');
 
-      // Show download link
       const list = document.getElementById('linksList');
       list.innerHTML = '';
+      
       const a = document.createElement('a');
       a.className = 'dl-link';
       a.href = '/api/file/' + id;
@@ -614,12 +567,14 @@ async function pollJob(id) {
           <span class="dl-link-q">${d.filename || 'Download File'}</span>
           <span class="dl-link-m">Tap to save · ${d.size || ''}</span>
         </div>
-        <span class="dl-link-ico">⬇</span>`;
+        <span class="dl-link-ico">⬇️</span>`;
+      
       list.appendChild(a);
       document.getElementById('linksSection').classList.add('show');
 
-      // Auto trigger
-      setTimeout(() => a.click(), 300);
+      setTimeout(() => {
+        window.location.href = '/api/file/' + id;
+      }, 500);
 
     } else if (d.status === 'error') {
       clearInterval(pollTimer); pollTimer = null;
@@ -628,21 +583,18 @@ async function pollJob(id) {
       showErr('❌ ' + (d.error || 'Download failed. Try a different quality or URL.'));
     }
   } catch(e) {
-    // Network hiccup, keep polling
+    console.log('Poll error:', e);
   }
 }
 </script>
 </body>
 </html>'''
 
-# Download worker with improvements for YouTube Shorts
+# Download worker
 def run_download(job_id, url, quality):
-    # Clean the URL
     url = url.strip()
     
-    # Fix common YouTube URL issues
     if 'youtube.com/shorts/' in url or 'youtu.be/' in url:
-        # Remove tracking parameters
         if '?si=' in url:
             url = url.split('?si=')[0]
     
@@ -660,7 +612,6 @@ def run_download(job_id, url, quality):
     
     out = os.path.join(DOWNLOAD_DIR, f'{job_id}_%(title).80s.%(ext)s')
 
-    # First get metadata with better error handling
     try:
         ydl_opts = {
             'quiet': True, 
@@ -671,26 +622,18 @@ def run_download(job_id, url, quality):
             jobs[job_id]['logs'].append("Fetching video information...")
             info = ydl.extract_info(url, download=False)
             
-            if info is None:
-                raise Exception("Could not extract video info")
-            
-            jobs[job_id]['title'] = info.get('title', '')[:80]
-            thumb = info.get('thumbnail', '')
-            jobs[job_id]['thumb'] = thumb
-            dur = info.get('duration')
-            if dur:
-                m, s = divmod(int(dur), 60)
-                h, m = divmod(m, 60)
-                jobs[job_id]['duration'] = f'{h:02d}:{m:02d}:{s:02d}' if h else f'{m:02d}:{s:02d}'
-            
-            # Log available formats
-            if 'formats' in info:
-                formats = info['formats']
-                jobs[job_id]['logs'].append(f"Found {len(formats)} available formats")
+            if info:
+                jobs[job_id]['title'] = info.get('title', '')[:80]
+                thumb = info.get('thumbnail', '')
+                jobs[job_id]['thumb'] = thumb
+                dur = info.get('duration')
+                if dur:
+                    m, s = divmod(int(dur), 60)
+                    h, m = divmod(m, 60)
+                    jobs[job_id]['duration'] = f'{h:02d}:{m:02d}:{s:02d}' if h else f'{m:02d}:{s:02d}'
     except Exception as e:
         jobs[job_id]['logs'].append(f"Metadata fetch warning: {str(e)}")
 
-    # Build command with better options for YouTube
     base_cmd = [sys.executable, '-m', 'yt_dlp',
                 '--no-playlist',
                 '--no-check-certificates',
@@ -699,8 +642,6 @@ def run_download(job_id, url, quality):
                 '--add-header', 'Accept-Language: en-US,en;q=0.9',
                 '--extractor-retries', '3',
                 '--retries', '3',
-                '--fragment-retries', '3',
-                '--file-access-retries', '3',
                 '--output', out]
     
     if quality == 'audio':
@@ -712,7 +653,6 @@ def run_download(job_id, url, quality):
             url
         ]
     else:
-        # YouTube specific format selection
         if 'youtube.com' in url or 'youtu.be' in url:
             if quality == 'best':
                 format_spec = 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best'
@@ -743,7 +683,6 @@ def run_download(job_id, url, quality):
         proc.wait()
 
         if proc.returncode == 0:
-            # Find file
             found_files = []
             for f in sorted(os.listdir(DOWNLOAD_DIR), key=lambda x: os.path.getmtime(os.path.join(DOWNLOAD_DIR, x)), reverse=True):
                 if f.startswith(job_id):
@@ -795,13 +734,11 @@ class Handler(BaseHTTPRequestHandler):
         path = urlparse(self.path).path
 
         if path in ('/', '/index.html'):
-            body = HTML.encode('utf-8')  # Explicit UTF-8 encoding
+            body = HTML.encode('utf-8')
             self.send_response(200)
             self.send_header('Content-Type', 'text/html; charset=utf-8')
             self.send_header('Content-Length', str(len(body)))
             self.send_header('Cache-Control', 'no-cache, no-store, must-revalidate')
-            self.send_header('Pragma', 'no-cache')
-            self.send_header('Expires', '0')
             self.end_headers()
             self.wfile.write(body)
             return
@@ -819,17 +756,31 @@ class Handler(BaseHTTPRequestHandler):
             if job and job.get('filepath') and os.path.exists(job['filepath']):
                 fpath = job['filepath']
                 fname = job.get('filename', 'video.mp4')
+                
+                if not fname.endswith(('.mp4', '.mp3', '.webm', '.mkv')):
+                    fname = fname + '.mp4'
+                
                 size = os.path.getsize(fpath)
+                
                 self.send_response(200)
-                ct = 'audio/mpeg' if fname.endswith('.mp3') else 'video/mp4'
-                self.send_header('Content-Type', ct)
+                self.send_header('Content-Type', 'video/mp4')
                 self.send_header('Content-Length', str(size))
                 self.send_header('Content-Disposition', f'attachment; filename="{fname}"')
+                self.send_header('Accept-Ranges', 'bytes')
+                self.send_header('Cache-Control', 'no-cache')
+                self.send_header('X-Content-Type-Options', 'nosniff')
                 self.end_headers()
+                
                 with open(fpath, 'rb') as f:
-                    while chunk := f.read(65536):
-                        try: self.wfile.write(chunk)
-                        except: break
+                    while True:
+                        chunk = f.read(65536)
+                        if not chunk:
+                            break
+                        try:
+                            self.wfile.write(chunk)
+                        except (BrokenPipeError, ConnectionError):
+                            break
+                return
             else:
                 self.send_json({'error': 'File not ready'}, 404)
         else:
@@ -873,7 +824,7 @@ if __name__ == '__main__':
     print(f"{'='*52}")
     print(f"\n  💻  Local:   http://localhost:{PORT}")
     print(f"  📱  Network: http://{ip}:{PORT}")
-    print(f"\n  ffmpeg: {'✓ Ready (HD+audio works)' if ffmpeg_ok else '✗ Missing! Run: sudo apt install ffmpeg'}")
+    print(f"\n  ffmpeg: {'✓ Ready' if ffmpeg_ok else '✗ Missing'}")
     print(f"  yt-dlp: ✓ Ready")
     print(f"  Downloads → {DOWNLOAD_DIR}")
     print(f"\n  Press Ctrl+C to stop")
