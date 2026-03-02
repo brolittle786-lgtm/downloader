@@ -10,4 +10,4 @@ COPY . /app
 ENV PORT=8080
 EXPOSE 8080
 
-CMD ["python3", "/app/vidsnap_server.py"]
+CMD ["python3", "vidsnap_server_FIXED.py"]
