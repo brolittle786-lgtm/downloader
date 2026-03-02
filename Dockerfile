@@ -1,7 +1,13 @@
 FROM python:3.11-slim
-RUN apt-get update && apt-get install -y ffmpeg && rm -rf /var/lib/apt/lists/*
-RUN pip install yt-dlp --no-cache-dir
+
 WORKDIR /app
-COPY vidsnap_server.py .
+
+RUN apt-get update && apt-get install -y ffmpeg
+RUN pip install yt-dlp --no-cache-dir
+
+COPY . .
+
 ENV PORT=8080
+EXPOSE 8080
+
 CMD ["python3", "vidsnap_server.py"]
