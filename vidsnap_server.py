@@ -1,3 +1,4 @@
+
 import os
 import re
 import json
@@ -68,7 +69,7 @@ class Handler(BaseHTTPRequestHandler):
                 self.end_headers()
                 return
 
-            # 🔥 SAFE FILENAME FIX (Unicode crash fix)
+            # 🔥 Unicode safe filename fix
             fname = fname.replace("/", "_").replace("\\", "_")
             ascii_name = re.sub(r'[^\x00-\x7F]+','', fname)
             ascii_name = ascii_name.replace('"', '')
